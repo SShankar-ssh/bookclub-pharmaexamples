@@ -1,31 +1,166 @@
 ---
 engine: knitr
 title: "Demographic Table"
+execute:
+  echo: false
 ---
 
-# Learning objectives
 
-::: nonincremental
-- THESE ARE NICE TO HAVE BUT NOT ABSOLUTELY NECESSARY
-:::
+# Introduction
+
+## SDTM
+
+-   SDTM: a standard for organizing and formatting "raw" data (e.g from paper diaries, or e-diaries)
+
+-   Defines **standard domains**
+
+-   Relies on **standardized** variable names, metadata, and controlled terminology
+
+-   Supports the submission of data to regulatory authorities
+
+Created with help of CDISC genius.
+
+## ADAM
+
+-   ADaM: provides a standard framework for derivations for statistical analyses.
+
+-   Promoting: transparency, reproducibility, and regulatory compliance.
+
+-   **Traceability**: Clear linkage from analysis results back to source data (often SDTM).
+
+-   **Standard structures**: Like ADSL (Subject-Level Analysis Dataset), BDS (Basic Data Structure), and OCCDS (Occurrence Data Structure).
+
+-   **Derived variables**: Emphasis on clarity and documentation of derived data used in analysis.
+
+Created with help of CDISC genius.
+
+## ADAM
+
+-   **Integration with Define-XML**:
+
+-   Enables metadata-driven submissions to regulatory agencies
+
+-   Explains derivation of variables
+
+-   Enables re-creation of derivations & statistical analyses by regulatory authorities
+
+Created with help of CDISC genius.
+
+# Tables, Listings and Graphs/Figures (TLGs/TLFs)
+
+TLFs: Static output generation for Clinical Study Report
+
+-   Listings: One proc away (filtering , subsetting etc. ), lay-out
+-   Tables/ Figures: pre-processing, calculate summary statistics, lay-out (e.g.bars/lines/scatter/ presentation summary statistics) + formatting (e.g titles and footnotes) + export output (e.g. pdf, rtf, xlsx & html)
+
+Created with help of CDISC genius.
+
+## TLGs
+
+Static outputs are part of the clinical reporting process. They are a vital part to summarise the results of the clinical trial. They can summarise safety, efficacy and exploratory outcomes, e.g. biomarkers, QOL, questionnares etc.
+
+Safety outputs (medical history, adverse events, and concomitant medications) are pretty much similar and standard outputs that you will see across all clinical trials ( regardless of sponsor/therapeutic area).
+
+Note. These domain names come from SDTM.
+
+## TLGs workflow
+
+```{r}
+#install.packages("DiagrammeR")
+library(DiagrammeR)
+mermaid("
+graph TD
+  A[SAP/Protocol] --> B[MOCK TFLs]
+  B --> C[ADAM]
+  C --> D[TFLs]
+")
+```
 
 ::: notes
-- You can add notes on each slide with blocks like this!
-- Load a deck in the browser and type "s" to see these notes.
+ProtocoL: Defines parameters to be analysed SAP: Defines how analyses to be conducted ADAM: Contains all variables and metadata that is required for the production of all outputs TLG: Present analysis results
 :::
 
-# SLIDE SECTION
+## TLGs Catalogs
 
-## SLIDE
+Catalogs with many examples are available here:
 
-- DENOTE MAJOR SECTIONS WITH `# TITLE` (eg `# Installation`)
-- ADD INDIVIDUAL SLIDES WITH `##` (eg `## rustup on Linux/macOS`)
-- KEEP THEM RELATIVELY SLIDE-LIKE; THESE ARE NOTES, NOT THE BOOK ITSELF.
+-   [TLG Catalog](https://insightsengineering.github.io/tlg-catalog/stable/)
+-   [Biomarker Catalog](https://insightsengineering.github.io/biomarker-catalog/stable/tables/)
+-   [Teal Gallery](https://insightsengineering.github.io/teal.gallery/)
 
-## SLIDE
+# Demographic Table
 
-# SLIDE SECTION
+[DMT01](https://insightsengineering.github.io/tlg-catalog/stable/tables/demography/dmt01.html)
 
-## SLIDE
+## Method 1
 
-## SLIDE
+-   The {cards} package creates Analysis Results Datasets (ARDs, which are a part of the CDISC Analysis Results Standard).
+-   The {gtsummary} utilizes ARDs to create tables.
+
+## Method 2
+
+-   NEST Package: A collection of open-sourced R packages:
+
+    -   {rtables}: Foundational layer of the table creation - can create simple to complex table lay outs via nested splitting - in row- and column - space and the specification of analysis functions which will calculate cell values.
+
+        -   Customize tables by defining how to split data into rows and columns, and what calculations to perform in each cell.
+
+        -   Provide a framework to create, tabulate and render.
+
+        -   Provides a variety of options for table customization.
+
+    -   {rlistings}: create listings
+
+    -   {tern}: Layers analytics from descriptive summaries to more complex statistics on top of the foundational table layouts, analytic and content controls.
+
+        -   Act as wrapper around {rtables} / Reporting layer that sits on top of rtables.
+
+        -   Contains analytical functions for creating tables and graphs.
+
+        -   Functionalities included: data visualization functions, statistical modelling, analyze functions amongst others.
+
+    -   {formatters}
+
+    -   {teal}
+
+-   Other Package:
+
+    -   GGPLOT2
+
+## {rtables}
+
++-------------------+--------------------+
+|                   | {rtables} function |
++===================+====================+
+| Demographic table | basic_table()      |
++-------------------+--------------------+
+|                   | split_cols_by()    |
++-------------------+--------------------+
+|                   | add_overall_col()  |
++-------------------+--------------------+
+|                   | show_col_counts()  |
++-------------------+--------------------+
+|                   | build_table()      |
++-------------------+--------------------+
+|                   | export_as_rtf()/   |
+|                   |                    |
+|                   | export_as_pdf()    |
++-------------------+--------------------+
+
+## {Tern}
+
++-------------------+------------------------------+
+|                   | {tern} analyze function      |
++===================+==============================+
+| Demographic table | analyze_vars()               |
+|                   |                              |
+|                   | ( before: summarize_vars() ) |
++-------------------+------------------------------+
+
+## Analyze functions
+
+-   .stats: which statistics to be displayed in the ta
+-   .formats: which value formats should be u
+-   .labels: which row labels should be used
+-   .indent_mods: indent modifiers for the labels
+-   .show_labels: whether variable label(s) should be visible or hidden
