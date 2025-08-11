@@ -51,7 +51,7 @@ Created with help of CDISC genius.
 TLFs: Static output generation for Clinical Study Report
 
 -   Listings: One proc away (filtering , subsetting etc. ), lay-out
--   Tables/ Figures: pre-processing, calculate summary statistics, lay-out (e.g.bars/lines/scatter/ presentation summary statistics) + formatting (e.g titles and footnotes) + export output (e.g. pdf, rtf, xlsx & html)
+-   Tables/ Figures: pre-processing, calculate summary statistics, lay-out (e.g.bars/lines/scatter/ presentation summary statistics) + formatting (e.g titles and footnotes) + export output (e.g. pdf, rtf & html)
 
 Created with help of CDISC genius.
 
